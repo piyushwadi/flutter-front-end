@@ -76,9 +76,8 @@ class _HomePageState extends State<HomePage> {
                         return NewsTile(
                           imgUrl: newslist[index].urlToImage ?? "",
                           title: newslist[index].title ?? "",
-                          desc: newslist[index].description ?? "",
-                          content: newslist[index].content ?? "",
-                          posturl: newslist[index].articleUrl ?? "",
+                          summary: newslist[index].summary ?? "",
+                          posturl: newslist[index].newsurl ?? "",
                         );
                       }),
                 ),

@@ -10,36 +10,29 @@ class News {
 
   Future<void> getNews() async{
 
-    String url = "http://newsapi.org/v2/top-headlines?country=in&excludeDomains=stackoverflow.com&sortBy=publishedAt&language=en&apiKey=5bf43541fc784cb3869568d60728e1bc";
+    String url = "http://34.70.13.196:80/get_data";
 
     var response = await http.get(url);
-
+    
 
     var jsonData = jsonDecode(response.body);
 
-    if(jsonData['status'] == "ok"){
-      jsonData["articles"].forEach((element){
+    if(true){
+      jsonData.forEach((element){
 
-        if(element['urlToImage'] != null && element['description'] != null){
+        if(element['summary'] != null){
           Article article = Article(
             title: element['title'],
-            author: element['author'],
-            description: element['description'],
-            urlToImage: element['urlToImage'],
-            publshedAt: DateTime.parse(element['publishedAt']),
-            content: element["content"],
-            articleUrl: element["url"],
+            summary: element['summary'],
+            urlToImage: element['image'],
+            newsurl: element['url']
           );
           news.add(article);
         }
 
       });
     }
-
-
   }
-
-
 }
 
 
@@ -50,34 +43,26 @@ class NewsForCategorie {
   Future<void> getNewsForCategory(String category) async{
 
     /*String url = "http://newsapi.org/v2/everything?q=$category&apiKey=${apiKey}";*/
-    String url = "http://newsapi.org/v2/top-headlines?country=in&category=$category&apiKey=${apiKey}";
+    String url = "http://34.70.13.196:80/get_data?topic=$category";
 
     var response = await http.get(url);
 
     var jsonData = jsonDecode(response.body);
 
-    if(jsonData['status'] == "ok"){
-      jsonData["articles"].forEach((element){
+    if(true){
+      jsonData.forEach((element){
 
-        if(element['urlToImage'] != null && element['description'] != null){
+        if( element['summary'] != null){
           Article article = Article(
             title: element['title'],
-            author: element['author'],
-            description: element['description'],
-            urlToImage: element['urlToImage'],
-            publshedAt: DateTime.parse(element['publishedAt']),
-            content: element["content"],
-            articleUrl: element["url"],
+            summary: element['summary'],
+            urlToImage: element['image'],
+            newsurl: element['url']
           );
           news.add(article);
         }
-
       });
     }
-
-
   }
-
-
 }
 

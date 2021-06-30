@@ -24,9 +24,9 @@ Widget MyAppBar(){
 
 
 class NewsTile extends StatelessWidget {
-  final String imgUrl, title, desc, content, posturl;
+  final String imgUrl, title, summary, posturl;
 
-  NewsTile({this.imgUrl, this.desc, this.title, this.content, @required this.posturl});
+  NewsTile({this.imgUrl, this.title,this.summary, @required this.posturl});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class NewsTile extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    desc,
+                    summary,
                     maxLines: 2,
                     style: TextStyle(color: Colors.black54, fontSize: 14),
                   )
