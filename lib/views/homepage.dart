@@ -5,7 +5,8 @@ import 'package:fluttertry2/helper/widgets.dart';
 import 'package:fluttertry2/models/categorie_model.dart';
 import 'package:fluttertry2/views/categorie_news.dart';
 import '../helper/news.dart';
-
+import 'package:fluttertry2/Constants.dart';
+import 'package:fluttertry2/helper/news.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -40,7 +41,26 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: new AppBar(
+          title: MyAppBar(),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: choiceAction,
+            itemBuilder: (BuildContext context){
+              return Constants.choices.map((String choice ){
+
+                return PopupMenuItem<String>(
+
+                  value: choice,
+                  child: Text(choice),
+
+                );
+
+              }).toList();
+            },
+          )
+        ],
+      ),
       body: SafeArea(
         child: _loading
             ? Center(
@@ -87,6 +107,15 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+  void choiceAction(String choice) async{
+ 
+    News news = News();
+    await news.getNewsLanguage(choice);
+    newslist = news.news;
+    setState(() {
+      _loading = false;
+    });
   }
 }
 

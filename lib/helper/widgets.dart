@@ -60,7 +60,7 @@ class NewsTile extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.cover,
                       )),
-                  SizedBox(height: 12,),
+                  SizedBox(height: 20,),
                   Text(
                     title,
                     maxLines: 2,
@@ -74,7 +74,7 @@ class NewsTile extends StatelessWidget {
                   ),
                   Text(
                     summary,
-                    maxLines: 2,
+                    maxLines: 6,
                     style: TextStyle(color: Colors.black54, fontSize: 14),
                   )
                 ],

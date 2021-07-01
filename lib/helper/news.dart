@@ -14,7 +14,6 @@ class News {
 
     var response = await http.get(url);
     
-
     var jsonData = jsonDecode(response.body);
 
     if(true){
@@ -24,6 +23,36 @@ class News {
           Article article = Article(
             title: element['title'],
             summary: element['summary'],
+            urlToImage: element['image'],
+            newsurl: element['url']
+          );
+          news.add(article);
+        }
+
+      });
+    }
+  }
+  Future<void> getNewsLanguage(String choice) async{
+
+    String url = "http://34.70.13.196:80/get_data";
+    news  = [];
+    var response = await http.get(url);
+    
+    var jsonData = jsonDecode(response.body);
+    if(choice == "English"){
+      choice = "";
+    }
+    else{
+      choice += "_";
+    }
+    
+    if(true){
+      jsonData.forEach((element){
+
+        if(element[choice+'summary'] != null){
+          Article article = Article(
+            title: element[choice+'title'],
+            summary: element[choice+'summary'],
             urlToImage: element['image'],
             newsurl: element['url']
           );
