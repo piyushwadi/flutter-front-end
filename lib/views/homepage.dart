@@ -134,7 +134,7 @@ class CategoryCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => CategoryNews(
-                      newsCategory: categoryName.toLowerCase(),
+                      newsCategory: categoryName,
                     )));
       },
       child: Container(

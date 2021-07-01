@@ -74,6 +74,9 @@ class NewsForCategorie {
     var lang = appInfo.current;
     print("Application language set to " + lang);
 
+    // entertainment
+    // Entertainment
+
     String url = "http://34.70.13.196:80/get_data?topic=$category";
     // String url = "http://34.70.13.196:80/get_data?topic=Entertainment";
 
