@@ -7,13 +7,15 @@ import 'package:fluttertry2/views/categorie_news.dart';
 import '../helper/news.dart';
 import 'package:fluttertry2/Constants.dart';
 import 'package:fluttertry2/helper/news.dart';
+
+import '../main.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
   bool _loading;
   var newslist;
 
@@ -42,20 +44,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-          title: MyAppBar(),
+        title: MyAppBar(),
         actions: <Widget>[
           PopupMenuButton<String>(
             onSelected: choiceAction,
-            itemBuilder: (BuildContext context){
-              return Constants.choices.map((String choice ){
-
+            itemBuilder: (BuildContext context) {
+              return Constants.choices.map((String choice) {
                 return PopupMenuItem<String>(
-
                   value: choice,
                   child: Text(choice),
-
                 );
-
               }).toList();
             },
           )
@@ -64,52 +62,56 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: _loading
             ? Center(
-          child: CircularProgressIndicator(),
-        )
+                child: CircularProgressIndicator(),
+              )
             : SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                /// Categories
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  height: 70,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: categories.length,
-                      itemBuilder: (context, index) {
-                        return CategoryCard(
-                          imageAssetUrl: categories[index].imageAssetUrl,
-                          categoryName: categories[index].categorieName,
-                        );
-                      }),
-                ),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      /// Categories
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        height: 70,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: categories.length,
+                            itemBuilder: (context, index) {
+                              return CategoryCard(
+                                imageAssetUrl: categories[index].imageAssetUrl,
+                                categoryName: categories[index].categorieName,
+                              );
+                            }),
+                      ),
 
-                /// News Article
-                Container(
-                  margin: EdgeInsets.only(top: 16),
-                  child: ListView.builder(
-                      itemCount: newslist.length,
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return NewsTile(
-                          imgUrl: newslist[index].urlToImage ?? "",
-                          title: newslist[index].title ?? "",
-                          summary: newslist[index].summary ?? "",
-                          posturl: newslist[index].newsurl ?? "",
-                        );
-                      }),
+                      /// News Article
+                      Container(
+                        margin: EdgeInsets.only(top: 16),
+                        child: ListView.builder(
+                            itemCount: newslist.length,
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return NewsTile(
+                                imgUrl: newslist[index].urlToImage ?? "",
+                                title: newslist[index].title ?? "",
+                                summary: newslist[index].summary ?? "",
+                                posturl: newslist[index].newsurl ?? "",
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }
-  void choiceAction(String choice) async{
- 
+
+  void choiceAction(String choice) async {
+    var appInfo = locator<LanguageService>();
+    appInfo.setLanguage(choice);
+    print("Application language set to " + appInfo.current);
+
     News news = News();
     await news.getNewsLanguage(choice);
     newslist = news.news;
@@ -127,12 +129,13 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => CategoryNews(
-              newsCategory: categoryName.toLowerCase(),
-            )
-        ));
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CategoryNews(
+                      newsCategory: categoryName.toLowerCase(),
+                    )));
       },
       child: Container(
         margin: EdgeInsets.only(right: 14),
@@ -153,8 +156,7 @@ class CategoryCard extends StatelessWidget {
               width: 120,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  color: Colors.black26
-              ),
+                  color: Colors.black26),
               child: Text(
                 categoryName,
                 textAlign: TextAlign.center,
