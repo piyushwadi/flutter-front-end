@@ -2,8 +2,6 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertry2/models/article.dart';
 import 'dart:convert';
 
-import 'package:fluttertry2/secret.dart';
-
 import 'package:get_it/get_it.dart';
 
 import '../main.dart';
@@ -15,7 +13,7 @@ class News {
   List<Article> news = [];
 
   Future<void> getNews() async {
-    print("Application language set to " + appInfo.current);
+    // print("Application language set to " + appInfo.current);
 
     String url = "http://34.70.13.196:80/get_data";
 
@@ -38,7 +36,7 @@ class News {
   }
 
   Future<void> getNewsLanguage(String choice) async {
-    print("Application language set to " + appInfo.current);
+    // print("Application language set to " + appInfo.current);
 
     String url = "http://34.70.13.196:80/get_data?language=$choice";
     news = [];
@@ -72,7 +70,7 @@ class NewsForCategorie {
   Future<void> getNewsForCategory(String category) async {
     /*String url = "http://newsapi.org/v2/everything?q=$category&apiKey=${apiKey}";*/
     var lang = appInfo.current;
-    print("Application language set to " + lang);
+    // print("Application language set to " + lang);
 
     // entertainment
     // Entertainment
@@ -83,7 +81,7 @@ class NewsForCategorie {
     var response = await http.get(url);
 
     var jsonData = jsonDecode(response.body);
-    print(url);
+    // print(url);
 
     if (lang == "English") {
       lang = "";

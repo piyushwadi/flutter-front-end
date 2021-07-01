@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
   void choiceAction(String choice) async {
     var appInfo = locator<LanguageService>();
     appInfo.setLanguage(choice);
-    print("Application language set to " + appInfo.current);
+    // print("Application language set to " + appInfo.current);
 
     News news = News();
     await news.getNewsLanguage(choice);

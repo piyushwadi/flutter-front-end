@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleView extends StatefulWidget {
-
   final String postUrl;
   ArticleView({@required this.postUrl});
 
@@ -13,10 +12,11 @@ class ArticleView extends StatefulWidget {
 }
 
 class _ArticleViewState extends State<ArticleView> {
-
-  final Completer<WebViewController> _controller = Completer<WebViewController>();
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
   @override
   Widget build(BuildContext context) {
+    print("page opened");
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -25,7 +25,7 @@ class _ArticleViewState extends State<ArticleView> {
             Text(
               "Quick",
               style:
-              TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+                  TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
             ),
             Text(
               "Read",
@@ -36,7 +36,9 @@ class _ArticleViewState extends State<ArticleView> {
         actions: <Widget>[
           Container(
               padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Icon(Icons.share,))
+              child: Icon(
+                Icons.share,
+              ))
         ],
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -45,8 +47,8 @@ class _ArticleViewState extends State<ArticleView> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: WebView(
-          initialUrl:  widget.postUrl,
-          onWebViewCreated: (WebViewController webViewController){
+          initialUrl: widget.postUrl,
+          onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);
           },
         ),
