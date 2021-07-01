@@ -34,7 +34,7 @@ class News {
   }
   Future<void> getNewsLanguage(String choice) async{
 
-    String url = "http://34.70.13.196:80/get_data";
+    String url = "http://34.70.13.196:80/get_data?language=$choice";
     news  = [];
     var response = await http.get(url);
     
