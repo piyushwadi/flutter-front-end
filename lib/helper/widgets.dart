@@ -60,7 +60,7 @@ class NewsTile extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         fit: BoxFit.cover,
                       )),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 23,),
                   Text(
                     title,
                     maxLines: 2,
