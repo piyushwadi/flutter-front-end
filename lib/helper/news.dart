@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
-import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertry2/models/article.dart';
 import 'dart:convert';
-import 'package:get_it/get_it.dart';
+
 import '../main.dart';
 
 GetIt locator = GetIt.instance;
@@ -12,19 +10,14 @@ var appInfo = locator<LanguageService>();
 
 class News {
   List<Article> news = [];
-  Future<JsonCodec> readJson() async {
-      final String response = await rootBundle.loadString('assets/news.json');
-      var data = await json.decode(response);
-      return data;
-  }
+
   Future<void> getNews() async {
     // print("Application language set to " + appInfo.current);
 
-    // String url = "http://34.70.13.196:80/get_data?topic=Latest+News";
+    String url = "https://raw.githubusercontent.com/sonishreyas/sample-news-data/main/Latest_News.json";
 
-    // var response = await http.get(url);
-    var jsonData = readJson();
-    // var jsonData = jsonDecode(response.body);
+    var response = await http.get(url);
+    var jsonData = jsonDecode(response.body);
 
     if (true) {
       jsonData.forEach((element) {
@@ -44,10 +37,10 @@ class News {
     // print("Application language set to " + appInfo.current);
 
     // String url = "http://34.70.13.196:80/get_data?language=$choice&topic=Latest+News";
+    String url = "https://raw.githubusercontent.com/sonishreyas/sample-news-data/main/Latest_News.json";
     news = [];
-    // var response = await http.get(url);
-    var jsonData = readJson();
-    // var jsonData = jsonDecode(response.body);
+    var response = await http.get(url);
+    var jsonData = jsonDecode(response.body);
     if (choice == "English") {
       choice = "";
     } else {
@@ -56,7 +49,7 @@ class News {
 
     if (true) {
       jsonData.forEach((element) {
-        if (element[choice + 'summary'] != null  && element['topic'] == "Latest News") {
+        if (element[choice + 'summary'] != null) {
           Article article = Article(
               title: element[choice + 'title'],
               summary: element[choice + 'summary'],
@@ -82,12 +75,12 @@ class NewsForCategorie {
 
     // String url = "http://34.70.13.196:80/get_data?topic=$category";
     // String url = "http://34.70.13.196:80/get_data?topic=Entertainment";
+    String url = "https://raw.githubusercontent.com/sonishreyas/sample-news-data/main/$category.json";
 
-    // var response = await http.get(url);
+    var response = await http.get(url);
 
-    // var jsonData = jsonDecode(response.body);
+    var jsonData = jsonDecode(response.body);
     // print(url);
-    var jsonData = readJson();
     if (lang == "English") {
       lang = "";
     } else {
@@ -96,7 +89,7 @@ class NewsForCategorie {
 
     if (true) {
       jsonData.forEach((element) {
-        if (element[lang + 'summary'] != null && element['topic'] == category {
+        if (element[lang + 'summary'] != null ){
           Article article = Article(
               title: element[lang + 'title'],
               summary: element[lang + 'summary'],
